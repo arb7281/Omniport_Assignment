@@ -15,30 +15,30 @@ exports.checkout = async (req, res) => {
         // Create user
         const user = await User.create({ name, email });
 
-        console.log("printing user data", user)
+        // console.log("printing user data", user)
         const amount = cart.reduce((sum, item) => sum + item.price, 0);
-        console.log("priniting amount", amount)
+        // console.log("priniting amount", amount)
 
-        const usersId = user.id
+        // const usersId = user.id
 
-        console.log("printing userId", usersId)
+        // console.log("printing userId", usersId)
     
         const order = await Order.create({ amount, userId: user.id });
-        console.log("printing order", order)
+        // console.log("printing order", order)
 
        
         for (const item of cart) {
             if (item.category === 'Chairs') {
                 await OrderChair.create({ orderId: order.id, chairId: item.id });
-            } else if (item.category === 'Tables') {
+            } else if (item.category === 'Table') {
                 await OrderTable.create({ orderId: order.id, tableId: item.id });
-            } else if (item.category === 'Tops') {
+            } else if (item.category === 'Top') {
                 await OrderTop.create({ orderId: order.id, topId: item.id });
             }
         }
 
-        res.json({ message: 'Order placed successfully' });
+        res.json({ success: true, message: 'Order placed successfully' });
     } catch (error) {
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({success: false, error: 'Internal Server Error' });
     }
 };

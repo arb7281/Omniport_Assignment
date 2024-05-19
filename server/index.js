@@ -13,9 +13,9 @@ app.use(cors({
     credentials: true
 }))
 
-const userRoutes = require("./routes/userRoutes")
+
 const orderRoutes = require("./routes/orderRoutes")
-app.use("/api/v1/user", userRoutes)
+
 app.use("/api/v1/order", orderRoutes)
 
 app.listen(PORT,()=>{
